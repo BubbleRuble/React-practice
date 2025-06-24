@@ -1,0 +1,40 @@
+.Counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  width: 300px;
+  margin: 40px auto;
+  background-color: #dbdada;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.Counter__value {
+  font-size: 48px;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.Counter__controls {
+  display: flex;
+  gap: 12px;
+}
+
+.Counter__controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Counter__controls button:hover {
+  background-color: #45a049;
+}
