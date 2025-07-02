@@ -5,6 +5,7 @@ import ColorPicker from './components/ColorPicker';
 import TodoList from './components/TodoList';
 import initialTodos from './components/TodoList/todos.json';
 import Form from './components/Forms/Forms';
+import TodoEditor from './components/TodoEditor';
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -27,43 +28,57 @@ class App extends Component {
   };
 
   toggleCompleted = todoId => {
-    this.setState(prevState => ({
-      todos: prevState.todos.map(todo => {
-        if (todo.id === todoId) {
-          console.log('Ми знайшли потрібний туду');
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      }),
-    }));
-  };
+  //   this.setState(prevState => ({
+  //     todos: prevState.todos.map(todo => {
+  //       if (todo.id === todoId) {
+  //         console.log('Ми знайшли потрібний туду');
+  //         return {
+  //           ...todo,
+  //           completed: !todo.completed,
+  //         };
+  //       }
+  //       return todo;
+  //     }),
+  //   }));
+  // };
+
+  this.setState(({todos}) => ({
+    todos: todos.map(todo => 
+      todo.id === todoId ? {...todo,completed: !todo.completed,} : todo,
+    ), 
+  }));
+}
+
+
 
   formSubmitHandler = data => {
     console.log(data);
   };
 
+
   render() {
     const { todos } = this.state;
-    // const completedTodos = todos.reduce((acc, todo) => todo.completed ? acc +1 : acc,0)
+    const totalTodoCount = todos.length
+    const completedTodos = todos.reduce((acc, todo) => todo.completed ? acc +1 : acc,0)
     return (
       <>
+      <TodoEditor/>
         {/* <Form onSubmit={this.formSubmitHandler} /> */}
 
         {/* <ColorPicker options={colorPickerOptions}/> */}
 
-        {/* <div>
+        <div>
           <p>Загальна кількість Todo: {todos.length}</p>
           <p>Загальна кількість виконаних Todo: {completedTodos}</p>
 
-        </div> */}
+        </div>
 
         <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted}/>
+        <TodoEditor/>
       </>
     );
-  }
-}
+  };
+};
 
 export default App;
+
