@@ -1,0 +1,29 @@
+.Clock__face {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  color: #fff;
+  background-color: #282c34;
+  padding: 20px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  margin: 20px auto;
+  text-align: center;
+  justify-content: center;
+  letter-spacing: 2px;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(40, 44, 52, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(40, 44, 52, 1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(40, 44, 52, 0.8);
+  }
+}
+ 

@@ -7,6 +7,8 @@ import initialTodos from './components/TodoList/todos.json';
 import Form from './components/Forms/Forms';
 import TodoEditor from './components/TodoEditor/todoEditor';
 import Filter from './components/Filter.js/Filter';
+import Modal from './components/Modal/Modal';
+import Clock from './components/Clock/Clock';
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -21,7 +23,34 @@ class App extends Component {
   state = {
     todos: initialTodos,
     filter: '',
+    showModal: false,
   };
+   componentDidMount() {
+    // console.log('App componentDidMount');
+
+    const todos = localStorage.getItem('todos');
+    const parsedTodos = JSON.parse(todos);
+
+    if (parsedTodos) {
+      this.setState({ todos: parsedTodos });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('App componentDidUpdate');
+
+    if (this.state.todos !== prevState.todos) {
+      // console.log('оновилося поле todos');
+    }
+
+    localStorage.setItem('todos', JSON.stringify(this.state.todos));
+  }
+
+  toggleModal = () => {
+    this.setState(({showModal}) => ({
+      showModal: !showModal
+    }))
+  }
 
   addTodo = text => {
     console.log(text);
@@ -88,19 +117,26 @@ class App extends Component {
   };
 
   render() {
-    const { todos, filter } = this.state;
+    const { todos, filter, showModal } = this.state;
     const totalTodoCount = todos.length;
     const completedTodos = this.calculateCompletedTodos();
     const visibleTodos = this.getVisibleTodos();
 
     return (
       <>
-        <TodoEditor onSubmit={this.addTodo} />
-        <Filter value={filter} onChange={this.changeFilter} />
+      <Clock/>
+      {/* <button type='button' onClick={this.toggleModal}>Взаємодія</button>
+
+        {showModal && (
+        <Modal onClose={this.toggleModal}>
+        <button type='button' onClick={this.toggleModal}>Взаємодія</button>
+        </Modal>)} */}
+        {/* <Filter value={filter} onChange={this.changeFilter} /> */}
         {/* <Form onSubmit={this.formSubmitHandler} /> */}
 
         {/* <ColorPicker options={colorPickerOptions}/> */}
 
+        {/* <TodoEditor onSubmit={this.addTodo} />
         <div>
           <p>Загальна кількість Todo: {todos.length}</p>
           <p>Загальна кількість виконаних Todo: {completedTodos}</p>
@@ -110,7 +146,7 @@ class App extends Component {
           todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        />
+        /> */}
       </>
     );
   }
