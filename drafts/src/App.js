@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import Counter from './components/Counter';
 import Dropdown from './components/Dropdown';
 import ColorPicker from './components/ColorPicker';
 import TodoList from './components/TodoList';
+import IconButton from './components/IconButton.js/IconButton';
 import initialTodos from './components/TodoList/todos.json';
 import Form from './components/Forms/Forms';
 import TodoEditor from './components/TodoEditor/todoEditor';
 import Filter from './components/Filter.js/Filter';
 import Modal from './components/Modal/Modal';
-import Clock from './components/Clock/Clock';
+// import Clock from './components/Clock/Clock';
+import Tabs from './components/Tabs/Tabs';
+import tabsJson from './components/Tabs/Tabs.json';
+import {ReactComponent as AddIcon} from './icons/add.svg'
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -40,10 +45,8 @@ class App extends Component {
     // console.log('App componentDidUpdate');
 
     if (this.state.todos !== prevState.todos) {
-      // console.log('оновилося поле todos');
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
     }
-
-    localStorage.setItem('todos', JSON.stringify(this.state.todos));
   }
 
   toggleModal = () => {
@@ -56,7 +59,7 @@ class App extends Component {
     console.log(text);
 
     const todo = {
-      id: 'будь який згенерований айдішнік',
+      id: uniqid.process(),
       text,
       completed: false,
     };
@@ -64,6 +67,7 @@ class App extends Component {
     this.setState(({ todos }) => ({
       todos: [todo, ...todos],
     }));
+    this.toggleModal()
   };
 
   deleteTodo = todoId => {
@@ -124,29 +128,38 @@ class App extends Component {
 
     return (
       <>
-      <Clock/>
-      {/* <button type='button' onClick={this.toggleModal}>Взаємодія</button>
+      {/* <Tabs items={tabsJson}/> */}
 
-        {showModal && (
+      {/* <button type='button' onClick={this.toggleModal}>Взаємодія</button> */}
+
+        {/* {showModal && (
         <Modal onClose={this.toggleModal}>
         <button type='button' onClick={this.toggleModal}>Взаємодія</button>
         </Modal>)} */}
+
         {/* <Filter value={filter} onChange={this.changeFilter} /> */}
         {/* <Form onSubmit={this.formSubmitHandler} /> */}
 
         {/* <ColorPicker options={colorPickerOptions}/> */}
 
-        {/* <TodoEditor onSubmit={this.addTodo} />
+        {showModal && (
+        <Modal onClose={this.toggleModal}>
+        <TodoEditor onSubmit={this.addTodo}/>
+        </Modal>)}
         <div>
           <p>Загальна кількість Todo: {todos.length}</p>
           <p>Загальна кількість виконаних Todo: {completedTodos}</p>
         </div>
 
+        <IconButton onClick={this.toggleModal} aria-label='Додати'>
+          <AddIcon />
+        </IconButton>
+
         <TodoList
           todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        /> */}
+        />
       </>
     );
   }

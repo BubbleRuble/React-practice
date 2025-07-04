@@ -1,0 +1,15 @@
+
+.IconButton {
+  margin: 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font: inherit;
+  background-color: blue;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
